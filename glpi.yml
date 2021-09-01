@@ -1,0 +1,69 @@
+version: "3.2"
+
+services:
+#Mysql Container
+  mysql:
+    container_name: $SERVICE-db
+    image: mysql:5.7.23
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    restart: always
+    environment:   # Username, password and database name variables
+        MYSQL_ROOT_PASSWORD=$DB_ROOT
+        MYSQL_DATABASE=glpi
+        MYSQL_USER=$GLPI_USER
+        MYSQL_PASSWORD=$GLPI_PASSWORD
+
+    # Facultatif  
+    networks:
+      - proxy
+    logging:
+      driver: loki
+      options:
+        loki-url: "$URL_LOKI"
+        loki-external-labels: service={{.Name}}
+
+#GLPI Container
+  glpi:
+    container_name : $SERVICE-web
+    depends_on:
+     - mysql
+    image: diouxx/glpi
+    restart: always
+    ports:
+        "80:80"
+    volumes:
+        /etc/timezone:/etc/timezone:ro
+        /etc/localtime:/etc/localtime:ro
+        /var/www/html/glpi/:/var/www/html/glpi
+    environment:
+        MYSQL_DATABASE=$DB_GLPI
+        MYSQL_USER=$MYSQL_GLPIUSER
+        MYSQL_PASSWORD=$MYSQL_GLPIPASSWORD
+        TIMEZONE=Europe/Brussels
+
+    # Facultatif  
+    networks:
+        - proxy
+    logging:
+      driver: loki
+      options:
+        loki-url: "$URL_LOKI"
+        loki-external-labels: service={{.Name}}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.$SERVICE.entrypoints=http"
+      - "traefik.http.routers.$SERVICE.rule=Host(`$SERVICE.$NDD`)"
+      - "traefik.http.middlewares.$SERVICE-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.$SERVICE.middlewares=$SERVICE-https-redirect"
+      - "traefik.http.routers.$SERVICE-secure.entrypoints=https"
+      - "traefik.http.routers.$SERVICE-secure.rule=Host(`$SERVICE.$NDD`)"
+      - "traefik.http.routers.$SERVICE-secure.tls=true"
+      - "traefik.http.routers.$SERVICE-secure.tls.certresolver=http"
+      - "traefik.http.services.$SERVICE-secure.loadbalancer.server.port=8080"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external:
+      name: proxy

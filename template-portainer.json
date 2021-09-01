@@ -1,0 +1,57 @@
+{
+	"version": "2",
+	"templates": [{
+			"type": 1,
+			"title": "Registry",
+			"description": "Docker image registry",
+			"categories": [
+				"docker"
+			],
+			"platform": "linux",
+			"logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/registry.png",
+			"image": "registry:latest",
+			"ports": [
+				"5000/tcp"
+			],
+			"volumes": [{
+				"container": "/var/lib/registry"
+			}]
+		},
+		
+      {
+        "type": 3,
+        "title": "GLPI",
+		"description": "GLPI est un outil ITSM , puissant et tout intégré pour la gestion de votre parc et de votre centre de services.",
+		"note": "<p>Site de l'application : <a href=\"https:\/\/glpi-project.org/fr/\/\" target=\"_blank\" rel=\"noopener\">glpi-project.org<\/a>",
+        "categories": [
+			"SelfHosting",
+			"VOUVRAT"
+        ],
+        "platform": "linux",
+        "logo": "https://glpi-project.org/wp-content/uploads/2017/03/logo-glpi-bleu-1.png",
+        "repository": {
+            "url": "https://github.com/vouvrat/docker-compose",
+            "stackfile": "glpi.yml"
+        },
+        "env": [{
+            "name": "SERVICE",
+            "label": "Nom du service"
+            },
+            {
+            "name": "DATA_LOCATION",
+            "label": "Localisation des données",
+            "description": "exemple /apps/'service'"
+            },
+            {
+            "name": "URL_LOKI",
+            "label": "Lien du serveur loki",
+            "description": "exemple : ndd/loki/api/v1/push"
+            },
+            {
+            "name": "NDD",
+            "label": "Lien du nom de domaine",
+            "description": "exemple : papamica.fr"
+        }]
+    }
+]
+}

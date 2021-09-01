@@ -10,9 +10,9 @@ services:
     restart: always
     environment:   # Username, password and database name variables
         MYSQL_ROOT_PASSWORD=$DB_ROOT
-        MYSQL_DATABASE=glpi
-        MYSQL_USER=$GLPI_USER
-        MYSQL_PASSWORD=$GLPI_PASSWORD
+        MYSQL_DATABASE=$SERVICE_DB
+        MYSQL_USER=$SERVICE_USER
+        MYSQL_PASSWORD=$SERVICE_PASSWORD
 
     # Facultatif  
     networks:
@@ -37,10 +37,10 @@ services:
         /etc/localtime:/etc/localtime:ro
         /var/www/html/glpi/:/var/www/html/glpi
     environment:
-        MYSQL_DATABASE=$DB_GLPI
-        MYSQL_USER=$MYSQL_GLPIUSER
-        MYSQL_PASSWORD=$MYSQL_GLPIPASSWORD
-        TIMEZONE=Europe/Brussels
+        MYSQL_DATABASE=$SERVICE_DB
+        MYSQL_USER=$SERVICE_USER
+        MYSQL_PASSWORD=$SERVICE_PASSWORD
+        TIMEZONE=Europe/Paris
 
     # Facultatif  
     networks:

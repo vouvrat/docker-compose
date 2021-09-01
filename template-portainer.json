@@ -30,11 +30,6 @@
             "label": "Lien du serveur loki",
             "description": "exemple : ndd/loki/api/v1/push"
             },
-            {
-            "name": "NDD",
-            "label": "Lien du nom de domaine",
-            "description": "exemple : papamica.fr"
-            },
 	    {
 	    "name": "DB_NAME",
 	    "label": "Nom de la base de données"
@@ -54,7 +49,7 @@
 	    {
 	    "name": "NDD",
 	    "label": "Lien du nom de domaine",
-	    "description": "exemple : papamica.fr"
+	    "description": "exemple : vouvrat.com"
 	}]
     }
 ]

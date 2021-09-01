@@ -6,7 +6,7 @@ services:
     container_name: $SERVICE-db
     image: mysql:5.7.23
     volumes:
-      - /var/lib/mysql:/var/lib/mysql
+      - $DATA:/var/lib/mysql
     restart: always
     environment:   # Username, password and database name variables
         MYSQL_ROOT_PASSWORD=$DB_ROOT
@@ -34,9 +34,9 @@ services:
         "80:80"
         "443":"443"
     volumes:
-        /etc/timezone:/etc/timezone:ro
-        /etc/localtime:/etc/localtime:ro
-        /var/www/html/glpi/:/var/www/html/glpi
+        $DATA:/etc/timezone:ro
+        $DATA:/etc/localtime:ro
+        $DATA:/var/www/html/glpi
     environment:
         MYSQL_DATABASE=$DB_NAME
         MYSQL_USER=$DB_USER

@@ -10,9 +10,9 @@ services:
     restart: always
     environment:   # Username, password and database name variables
         MYSQL_ROOT_PASSWORD=$DB_ROOT
-        MYSQL_DATABASE=$SERVICE_DB
-        MYSQL_USER=$SERVICE_USER
-        MYSQL_PASSWORD=$SERVICE_PASSWORD
+        MYSQL_DATABASE=$DB_NAME
+        MYSQL_USER=$DB_USER
+        MYSQL_PASSWORD=$DB_PASSWORD
 
     # Facultatif  
     networks:
@@ -32,14 +32,15 @@ services:
     restart: always
     ports:
         "80:80"
+        "443":"443"
     volumes:
         /etc/timezone:/etc/timezone:ro
         /etc/localtime:/etc/localtime:ro
         /var/www/html/glpi/:/var/www/html/glpi
     environment:
-        MYSQL_DATABASE=$SERVICE_DB
-        MYSQL_USER=$SERVICE_USER
-        MYSQL_PASSWORD=$SERVICE_PASSWORD
+        MYSQL_DATABASE=$DB_NAME
+        MYSQL_USER=$DB_USER
+        MYSQL_PASSWORD=$DB_PASSWORD
         TIMEZONE=Europe/Paris
 
     # Facultatif  

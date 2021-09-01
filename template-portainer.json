@@ -34,7 +34,28 @@
             "name": "NDD",
             "label": "Lien du nom de domaine",
             "description": "exemple : papamica.fr"
-        }]
+            },
+	    {
+	    "name": "DB_NAME",
+	    "label": "Nom de la base de données"
+	    },
+	    {
+	    "name": "DB_USER",
+	    "label": "Utilisateur de la base de données"
+	    },
+	    {
+	    "name": "DB_PASSWORD",
+	    "label": "Mot de passe de l'utilisateur"
+	    },
+	    {
+	    "name": "DB_ROOT",
+	    "label": "Mot de passe root"
+	    },
+	    {
+	    "name": "NDD",
+	    "label": "Lien du nom de domaine",
+	    "description": "exemple : papamica.fr"
+	}]
     }
 ]
 }

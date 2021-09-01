@@ -1,24 +1,7 @@
 {
 	"version": "2",
-	"templates": [{
-			"type": 1,
-			"title": "Registry",
-			"description": "Docker image registry",
-			"categories": [
-				"docker"
-			],
-			"platform": "linux",
-			"logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/registry.png",
-			"image": "registry:latest",
-			"ports": [
-				"5000/tcp"
-			],
-			"volumes": [{
-				"container": "/var/lib/registry"
-			}]
-		},
-		
-      {
+	"templates": [
+	{			
         "type": 3,
         "title": "GLPI",
 		"description": "GLPI est un outil ITSM , puissant et tout intégré pour la gestion de votre parc et de votre centre de services.",

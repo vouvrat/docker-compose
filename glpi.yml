@@ -26,8 +26,6 @@ services:
 #GLPI Container
   glpi:
     container_name : $SERVICE-web
-    depends_on:
-     - mysql
     image: diouxx/glpi
     restart: always
     ports:

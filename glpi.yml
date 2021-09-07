@@ -6,13 +6,13 @@ services:
     container_name: $SERVICE-db
     image: mysql:5.7.23
     volumes:
-      - $DATA_LOCATION/bdd:/var/lib/mysql
+      - $DATA_location/bdd:/var/lib/mysql
     restart: always
     environment:   # Username, password and database name variables
-        MYSQL_ROOT_PASSWORD=$DB_ROOT
-        MYSQL_DATABASE=$DB_NAME
-        MYSQL_USER=$DB_USER
-        MYSQL_PASSWORD=$DB_PASSWORD
+       - MYSQL_ROOT_PASSWORD=$DB_ROOT
+       - MYSQL_DATABASE=$DB_NAME
+       - MYSQL_USER=$DB_USER
+       - MYSQL_PASSWORD=$DB_PASSWORD
 
     # Facultatif  
     networks:
@@ -28,18 +28,17 @@ services:
     container_name : $SERVICE-web
     image: diouxx/glpi
     restart: always
-    ports:
-        "80:80"
-        "443":"443"
+#    ports:
+#        "80:80"
     volumes:
-        $DATA_LOCATION/config:/etc/timezone:ro
-        $DATA_LOCATION/config:/etc/localtime:ro
-        $DATA_LOCATION/config:/var/www/html/glpi
+       - $DATA_location:/etc/timezone:ro
+       - $DATA_location:/etc/localtime:ro
+       - $DATA_location:/var/www/html/glpi
     environment:
-        MYSQL_DATABASE=$DB_NAME
-        MYSQL_USER=$DB_USER
-        MYSQL_PASSWORD=$DB_PASSWORD
-        TIMEZONE=Europe/Paris
+       - MYSQL_DATABASE=$DB_NAME
+       - MYSQL_USER=$DB_USER
+       - MYSQL_PASSWORD=$DB_PASSWORD
+       - TIMEZONE=Europe/Paris
 
     # Facultatif  
     networks:

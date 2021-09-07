@@ -31,14 +31,11 @@ services:
 #    ports:
 #        "80:80"
     volumes:
-       - $DATA_location:/etc/timezone:ro
-       - $DATA_location:/etc/localtime:ro
        - $DATA_location:/var/www/html/glpi
     environment:
        - MYSQL_DATABASE=$DB_NAME
        - MYSQL_USER=$DB_USER
        - MYSQL_PASSWORD=$DB_PASSWORD
-       - TIMEZONE=Europe/Paris
 
     # Facultatif  
     networks:

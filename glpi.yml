@@ -29,7 +29,7 @@ services:
     image: diouxx/glpi
     restart: always
 #    ports:
-#        "80:80"
+#       - "80:80"
     volumes:
        - $DATA_location:/var/www/html/glpi
     environment:

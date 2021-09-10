@@ -3,17 +3,16 @@ version: "3.2"
 services:
 #Mysql Container
   mysql:
-    container_name: $SERVICE-db
     image: mysql:5.7.23
+    container_name: $SERVICE-db
     volumes:
-      - $DATA_location/bdd:/var/lib/mysql
+      - $DATA_location/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=$DB_ROOT
+      - MYSQL_DATABASE=$DB_NAME
+      - MYSQL_USER=$DB_USER
+      - MYSQL_PASSWORD=$DB_PASSWORD
     restart: always
-    environment:   # Username, password and database name variables
-       - MYSQL_ROOT_PASSWORD=$DB_ROOT
-       - MYSQL_DATABASE=$DB_NAME
-       - MYSQL_USER=$DB_USER
-       - MYSQL_PASSWORD=$DB_PASSWORD
-
     # Facultatif  
     networks:
       - proxy
@@ -29,15 +28,16 @@ services:
     image: diouxx/glpi
     restart: always
 #    ports:
-#       - "80:80"
+#      - "80:80"
     volumes:
-       - $DATA_location:/var/www/html/glpi
+      - $DATA_location:/var/www/html/
     environment:
-       - MYSQL_DATABASE=$DB_NAME
-       - MYSQL_USER=$DB_USER
-       - MYSQL_PASSWORD=$DB_PASSWORD
+      - TIMEZONE=Europe/Paris
+      - MYSQL_DATABASE=$DB_NAME
+      - MYSQL_USER=$DB_USER
+      - MYSQL_PASSWORD=$DB_PASSWORD
 
-    # Facultatif  
+# Facultatif  
     networks:
         - proxy
     logging:
@@ -55,7 +55,6 @@ services:
       - "traefik.http.routers.$SERVICE-secure.rule=Host(`$SERVICE.$NDD`)"
       - "traefik.http.routers.$SERVICE-secure.tls=true"
       - "traefik.http.routers.$SERVICE-secure.tls.certresolver=http"
-      - "traefik.http.services.$SERVICE-secure.loadbalancer.server.port=8080"
       - "traefik.docker.network=proxy"
 
 networks:
